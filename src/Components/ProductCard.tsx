@@ -10,20 +10,15 @@ interface ProductCardProps {
   categorySlug: string;
 }
 
-const ProductCard = ({ product, categorySlug }: ProductCardProps) => {
-  // Handle add to cart
+const ProductCard: React.FC<ProductCardProps> = ({ product, categorySlug }) => {
   const handleAddToCart = () => {
-    // Get existing cart from localStorage
     const storedCart = localStorage.getItem("cart");
-    let cart: Product[] = storedCart ? JSON.parse(storedCart) : [];
+    const cart: Product[] = storedCart ? JSON.parse(storedCart) : [];
 
-    // Check if product already exists
     const existingProduct = cart.find((p) => p.id === product.id);
     if (existingProduct) {
-      // If already exists, you might increase qty (optional feature)
       alert("This product is already in your cart!");
     } else {
-      // Add new product
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Product added to cart!");
